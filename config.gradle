@@ -1,0 +1,60 @@
+ext{
+    android=[
+            compileSdkVersion:30,
+            buildToolsVersion:"30.0.1",
+            minSdkVersion:16,
+            targetSdkVersion:30,
+            versionCode:1,
+            versionName:"1.0_alpha"
+    ]
+
+    dependenciesVersion=[
+            appcompat:"1.2.0",
+            constraintlayout:"2.0.1",
+            arouter: "1.5.0",
+            aroutercompiler:"1.2.2",
+            retrofit:"2.5.0",
+            retrofitgson:"2.5.0",
+            retrofitrxjava:"2.5.0",
+            gson:"2.8.5",
+            rxandroid:"2.1.0",
+            rxjava:"2.2.5",
+            okhttplog:"3.5.0",
+            glide: "4.9.0",
+            disklru:"2.0.2",
+            autodisposearchcomponents:"1.0.0-RC3",
+            autodispose:"1.0.0-RC3",
+            gDao: "3.2.2",
+            fastjsonAndroid: "1.1.70.android",
+            fastjson: "1.2.55"
+    ]
+
+    dependencies=[
+            appcompat:"androidx.appcompat:appcompat:$dependenciesVersion.appcompat",
+            constraintlayout:"androidx.constraintlayout:constraintlayout:$dependenciesVersion.constraintlayout",
+            arouter: "com.alibaba:arouter-api:$dependenciesVersion.arouter",
+            aroutercompiler:"com.alibaba:arouter-compiler:$dependenciesVersion.aroutercompiler",
+            retrofit:"com.squareup.retrofit2:retrofit:$dependenciesVersion.retrofit",
+            retrofitgson:"com.squareup.retrofit2:converter-gson:$dependenciesVersion.retrofitgson",
+            retrofitrxjava:"com.squareup.retrofit2:adapter-rxjava2:$dependenciesVersion.retrofitrxjava",
+            okhttplog:"com.squareup.okhttp3:logging-interceptor:$dependenciesVersion.okhttplog",
+            gson:"com.google.code.gson:gson:$dependenciesVersion.gson",
+            rxandroid:"io.reactivex.rxjava2:rxandroid:$dependenciesVersion.rxandroid",
+            rxjava:"io.reactivex.rxjava2:rxjava:$dependenciesVersion.rxjava",
+
+            autodisposearchcomponents:"com.uber.autodispose:autodispose-android-archcomponents:$dependenciesVersion.autodisposearchcomponents",
+            autodispose:"com.uber.autodispose:autodispose-android:$dependenciesVersion.autodispose",
+            glide:"com.github.bumptech.glide:glide:$dependenciesVersion.glide",
+            disklru:"com.jakewharton:disklrucache:$dependenciesVersion.disklru",
+
+            gDao:"org.greenrobot:greendao:$dependenciesVersion.gDao",
+            fastjsonAndroid: "com.alibaba:fastjson:$dependenciesVersion.fastjsonAndroid",
+            fastjson:"com.alibaba:fastjson:$dependenciesVersion.fastjson"
+    ]
+
+    url=[
+            debug:"http://www.zydeveloper.com/",
+            release:"http://www.city2sky.cn/",
+            test:"http://10.127.10.8/"
+    ]
+}
