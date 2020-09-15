@@ -3,7 +3,9 @@ if (isNeedUserCenterMoudle.toBoolean()){
 } else{
     apply plugin: 'com.android.library'
 }
+apply plugin: 'org.greenrobot.greendao' // apply plugin
 
+def libs = rootProject.ext.dependencies
 
 android {
     compileSdkVersion 30
@@ -50,4 +52,5 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    implementation libs.gDao
 }

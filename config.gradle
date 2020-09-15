@@ -24,7 +24,7 @@ ext{
             disklru:"2.0.2",
             autodisposearchcomponents:"1.0.0-RC3",
             autodispose:"1.0.0-RC3",
-            gDao: "3.2.2",
+            gDao: "3.3.0",
             fastjsonAndroid: "1.1.70.android",
             fastjson: "1.2.55"
     ]
