@@ -22,10 +22,6 @@
         android:text="登录"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"></Button>
-    <com.zy.widget.CircleView
-        android:id="@+id/cv_test"
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></com.zy.widget.CircleView>
+
 
 </LinearLayout>

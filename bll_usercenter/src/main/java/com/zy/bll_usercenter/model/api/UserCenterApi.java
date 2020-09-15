@@ -1,10 +1,11 @@
 package com.zy.bll_usercenter.model.api;
 
+import com.zy.bll_usercenter.model.protocol.request.UserReq;
+import com.zy.net.protocol.response.BaseEntity;
+
 import io.reactivex.Observable;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Body;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 /**
  * @author:zhangyue
@@ -12,7 +13,6 @@ import retrofit2.http.Query;
  */
 public interface UserCenterApi {
 
-    @FormUrlEncoded
-    @POST("/login")
-    Observable<Boolean> login(@Query("username") String username, @Query("pwd") String pwd);
+    @POST("/user/login")
+    Observable<BaseEntity<UserReq>> login(@Body UserReq userReq);
 }

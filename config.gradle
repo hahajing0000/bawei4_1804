@@ -53,8 +53,8 @@ ext{
     ]
 
     url=[
-            debug:"http://www.zydeveloper.com/",
-            release:"http://www.city2sky.cn/",
-            test:"http://10.127.10.8/"
+            debug:"http://kuaishou.zydeveloper.com:9999/",
+            release:"http://kuaishou.zydeveloper.com:9999/",
+            test:"http://kuaishou.zydeveloper.com:9999/"
     ]
 }

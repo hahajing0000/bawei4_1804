@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 
 def libs = rootProject.ext.dependencies
-
+def urls = rootProject.ext.url
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.1"
@@ -18,9 +18,18 @@ android {
 
     buildTypes {
         release {
+            buildConfigField("String","baseUrl","\""+urls.debug+"\"")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug{
+            buildConfigField("String","baseUrl","\""+urls.debug+"\"")
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 

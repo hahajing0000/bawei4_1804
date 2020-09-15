@@ -7,8 +7,10 @@ import android.widget.EditText;
 
 import com.zy.bll_usercenter.R;
 import com.zy.bll_usercenter.contract.UserCenterContract;
+import com.zy.bll_usercenter.model.protocol.request.UserReq;
 import com.zy.bll_usercenter.presenter.UCPresenter;
 import com.zy.core.mvp.ui.BaseActivity;
+import com.zy.imageloader.ImageLoaderManager;
 import com.zy.widget.CircleView;
 import com.zy.widget.MyProgress;
 
@@ -16,8 +18,6 @@ public class LoginActivity extends BaseActivity<UCPresenter> implements UserCent
     private EditText etUsername;
     private EditText etPwd;
     private Button btnLogin;
-    private MyProgress mpTest;
-    private CircleView cvTest;
 
 
 
@@ -30,14 +30,13 @@ public class LoginActivity extends BaseActivity<UCPresenter> implements UserCent
             public void onClick(View view) {
                 String username=etUsername.getText().toString();
                 String pwd=etPwd.getText().toString();
-                mPresenter.login(username,pwd);
+                mPresenter.login(new UserReq(username,pwd));
             }
         });
     }
 
     @Override
     protected void initData() {
-        cvTest.startAnimal();
     }
 
     @Override
@@ -45,7 +44,8 @@ public class LoginActivity extends BaseActivity<UCPresenter> implements UserCent
         etUsername = (EditText) $(R.id.et_username);
         etPwd = (EditText) $(R.id.et_pwd);
         btnLogin = (Button) $(R.id.btn_login);
-        cvTest = (CircleView) $(R.id.cv_test);
+
+        ImageLoaderManager.getInstance().load(this,"",null);
     }
 
     @Override

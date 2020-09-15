@@ -1,6 +1,6 @@
 package com.zy.net;
 
-import android.util.Log;
+import com.zy.net.retrofit.CustomGsonConverterFactory;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -41,11 +41,12 @@ public class RetrofitFactory {
      * 初始化Retrofit
      */
     private void initRetrofit() {
-        retrofit = new Retrofit.Builder().baseUrl("")
+        retrofit = new Retrofit.Builder().baseUrl(BuildConfig.baseUrl)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(CustomGsonConverterFactory.create())
                 .client(createOkHttpClient())
                 .build();
+
     }
 
     /**
@@ -75,8 +76,8 @@ public class RetrofitFactory {
             public Response intercept(Chain chain) throws IOException {
                 Request request = chain.request();
                 Request newRequest = request.newBuilder()
-                        .addHeader("token","")
-                        .addHeader("devicecode","")
+                        .addHeader("token","11")
+                        .addHeader("devicecode","11")
                         .build();
                 Response response = chain.proceed(newRequest);
 

@@ -5,10 +5,13 @@ import android.os.SystemClock;
 import com.zy.bll_usercenter.callback.ResultCallback;
 import com.zy.bll_usercenter.contract.UserCenterContract;
 import com.zy.bll_usercenter.model.api.UserCenterApi;
+import com.zy.bll_usercenter.model.protocol.request.UserReq;
 import com.zy.net.RetrofitFactory;
+import com.zy.net.protocol.response.BaseEntity;
 import com.zy.net.rxjava.BaseObservable;
 import com.zy.net.rxjava.BaseObserver;
 
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -21,21 +24,11 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class UCModel implements UserCenterContract.UserCenterModel {
     @Override
-    public void login(String username, String pwd, final ResultCallback callback) {
+    public Observable<BaseEntity<UserReq>> login(UserReq userReq) {
         //模拟一个请求 Retrofit请求的位置
         UserCenterApi userCenterApi = RetrofitFactory.getInstance().create(UserCenterApi.class);
-        BaseObservable.doObservable(userCenterApi.login(username, pwd), new BaseObserver<Boolean>() {
-            @Override
-            public void onNext(Boolean aBoolean) {
-                callback.Success(aBoolean);
-            }
 
-            @Override
-            public void onError(Throwable error) {
-                callback.Failed(error);
-            }
-        });
-
+        return  userCenterApi.login(userReq);
 
     }
 

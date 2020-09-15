@@ -1,10 +1,14 @@
 package com.zy.bll_usercenter.contract;
 
 import com.zy.bll_usercenter.callback.ResultCallback;
+import com.zy.bll_usercenter.model.protocol.request.UserReq;
 import com.zy.core.mvp.IModel;
 import com.zy.core.mvp.IView;
 import com.zy.core.mvp.Presenter;
 import com.zy.core.mvp.Repository;
+import com.zy.net.protocol.response.BaseEntity;
+
+import io.reactivex.Observable;
 
 /**
  * @author:zhangyue
@@ -18,11 +22,11 @@ public interface UserCenterContract {
     }
 
     interface UserCenterModel extends IModel {
-        void login(String username, String pwd, ResultCallback callback);
+        Observable<BaseEntity<UserReq>> login(UserReq userReq);
     }
 
     abstract class UserCenterRepository extends Repository<UserCenterModel>{
-        public abstract void login(String username,String pwd,ResultCallback callback);
+        public abstract Observable<BaseEntity<UserReq>> login(UserReq userReq);
     }
 
     abstract class UserCenterPresenter extends Presenter<UserCenterRepository,UserCenterView>{
@@ -31,6 +35,6 @@ public interface UserCenterContract {
             super(userCenterView);
         }
 
-        public abstract void login(String username,String pwd);
+        public abstract void login(UserReq userReq);
     }
 }
