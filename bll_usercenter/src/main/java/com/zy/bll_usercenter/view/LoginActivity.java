@@ -20,6 +20,9 @@ import com.zy.imageloader.ImageLoaderManager;
 import com.zy.widget.CircleView;
 import com.zy.widget.MyProgress;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class LoginActivity extends BaseActivity<UCPresenter> implements UserCenterContract.UserCenterView {
     private EditText etUsername;
     private EditText etPwd;
@@ -40,18 +43,37 @@ public class LoginActivity extends BaseActivity<UCPresenter> implements UserCent
             }
         });
 
+        final LinkedHashMap<String,Integer> map=new LinkedHashMap<>(0,0.75F,false);
         btnTestGreendao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    long key = userDao.insert(new UserEntity(1L, "小米", "1", 20));
-                    UserEntity entity = userDao.load(key);
-                    LogUtils.getInstance().d("insert result -> "+entity.toString());
+//                try {
+//                    long key = userDao.insert(new UserEntity(1L, "小米", "1", 20));
+//                    UserEntity entity = userDao.load(key);
+//                    LogUtils.getInstance().d("insert result -> "+entity.toString());
+//
+//                }catch (SQLiteConstraintException ex){
+//                    LogUtils.getInstance().e("error -> "+ex.getMessage());
+//                }
 
-                }catch (SQLiteConstraintException ex){
-                    LogUtils.getInstance().e("error -> "+ex.getMessage());
+                map.put("1",11);
+                map.put("2",22);
+                map.put("3",33);
+                map.put("4",44);
+                map.put("5",55);
+
+                for (Map.Entry<String,Integer> item : map.entrySet()){
+                    LogUtils.getInstance().i("key->"+item.getKey()+"  value->"+item.getValue());
                 }
 
+                LogUtils.getInstance().i("---------------------------------------------------------------");
+                map.get("3");
+                map.put("6",66);
+                map.get("2");
+
+                for (Map.Entry<String,Integer> item : map.entrySet()){
+                    LogUtils.getInstance().i("key->"+item.getKey()+"  value->"+item.getValue());
+                }
             }
         });
     }
