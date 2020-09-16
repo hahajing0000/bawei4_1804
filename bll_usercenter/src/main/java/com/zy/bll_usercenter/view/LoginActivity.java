@@ -17,6 +17,9 @@ import com.zy.bll_usercenter.presenter.UCPresenter;
 import com.zy.common.log.LogUtils;
 import com.zy.core.mvp.ui.BaseActivity;
 import com.zy.imageloader.ImageLoaderManager;
+import com.zy.net.RetrofitFactory;
+import com.zy.storage.callback.ResultCallback;
+import com.zy.storage.chain.StorageChainManager;
 import com.zy.widget.CircleView;
 import com.zy.widget.MyProgress;
 
@@ -43,37 +46,26 @@ public class LoginActivity extends BaseActivity<UCPresenter> implements UserCent
             }
         });
 
-        final LinkedHashMap<String,Integer> map=new LinkedHashMap<>(0,0.75F,false);
+
         btnTestGreendao.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-//                try {
-//                    long key = userDao.insert(new UserEntity(1L, "小米", "1", 20));
-//                    UserEntity entity = userDao.load(key);
-//                    LogUtils.getInstance().d("insert result -> "+entity.toString());
-//
-//                }catch (SQLiteConstraintException ex){
-//                    LogUtils.getInstance().e("error -> "+ex.getMessage());
-//                }
+                UserEntity userEntity=new UserEntity();
+                userEntity.setAge(20);
+                userEntity.setUsername("小明");
 
-                map.put("1",11);
-                map.put("2",22);
-                map.put("3",33);
-                map.put("4",44);
-                map.put("5",55);
+                StorageChainManager.getInstance().putValue(userEntity.getClass().getSimpleName(),userEntity);
 
-                for (Map.Entry<String,Integer> item : map.entrySet()){
-                    LogUtils.getInstance().i("key->"+item.getKey()+"  value->"+item.getValue());
-                }
 
-                LogUtils.getInstance().i("---------------------------------------------------------------");
-                map.get("3");
-                map.put("6",66);
-                map.get("2");
+                StorageChainManager.getInstance().getValue(userEntity.getClass().getSimpleName(), new ResultCallback() {
+                    @Override
+                    public void Success(Object o) {
+                        UserEntity userEntity1= (UserEntity) o;
+                        LogUtils.getInstance().i(userEntity1.toString());
+                    }
+                });
 
-                for (Map.Entry<String,Integer> item : map.entrySet()){
-                    LogUtils.getInstance().i("key->"+item.getKey()+"  value->"+item.getValue());
-                }
             }
         });
     }
@@ -117,4 +109,5 @@ public class LoginActivity extends BaseActivity<UCPresenter> implements UserCent
     public void loginFailed(String error) {
         showMsg("登录失败，INFO："+error);
     }
+
 }
