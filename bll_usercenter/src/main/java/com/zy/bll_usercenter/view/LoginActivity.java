@@ -1,6 +1,5 @@
 package com.zy.bll_usercenter.view;
 
-import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,14 +16,10 @@ import com.zy.bll_usercenter.presenter.UCPresenter;
 import com.zy.common.log.LogUtils;
 import com.zy.core.mvp.ui.BaseActivity;
 import com.zy.imageloader.ImageLoaderManager;
-import com.zy.net.RetrofitFactory;
 import com.zy.storage.callback.ResultCallback;
 import com.zy.storage.chain.StorageChainManager;
-import com.zy.widget.CircleView;
-import com.zy.widget.MyProgress;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import androidx.lifecycle.LifecycleOwner;
 
 public class LoginActivity extends BaseActivity<UCPresenter> implements UserCenterContract.UserCenterView {
     private EditText etUsername;
@@ -75,6 +70,8 @@ public class LoginActivity extends BaseActivity<UCPresenter> implements UserCent
     protected void initData() {
         DaoSession daoSession = ((MyApplication) getApplication()).getDaoSession();
         userDao = daoSession.getUserEntityDao();
+
+
     }
 
     @Override
@@ -110,4 +107,8 @@ public class LoginActivity extends BaseActivity<UCPresenter> implements UserCent
         showMsg("登录失败，INFO："+error);
     }
 
+    @Override
+    public LifecycleOwner getLifecycleOwner() {
+        return this;
+    }
 }

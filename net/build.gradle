@@ -43,5 +43,6 @@ dependencies {
 
 
     implementation libs.okhttplog
-
+    implementation libs.autodispose
+    implementation libs.autodisposearchcomponents
 }

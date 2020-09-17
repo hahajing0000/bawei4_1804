@@ -40,7 +40,7 @@ public class UCPresenter extends UserCenterContract.UserCenterPresenter {
                     mView.get().loginFailed(error.getMessage());
                 }
             }
-        });
+        },mView.get().getLifecycleOwner());
     }
 
     @Override
