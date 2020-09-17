@@ -1,5 +1,7 @@
 package com.zy.widget;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -8,11 +10,14 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 /**
@@ -21,6 +26,10 @@ import androidx.annotation.Nullable;
  */
 public class CircleView extends View {
     private Paint paintBackground,paintFoceground,paintText;
+    private float defaultTextSize=18F;
+
+    private CircleViewCompletedListener listener;
+
     public CircleView(Context context) {
         super(context);
     }
@@ -28,16 +37,25 @@ public class CircleView extends View {
     public CircleView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         initPaint();
+
     }
 
     public CircleView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    private Float strokeWidth=10F;
+    public void setListener(CircleViewCompletedListener listener) {
+        this.listener = listener;
+    }
 
-    private int defaultWidth=200;
-    private int defaultHeight=200;
+    private Float strokeWidth=5F;
+
+    private int defaultWidth=80;
+    private int defaultHeight=80;
+
+    private int duration=5;
+
+    String text=String.valueOf(duration);
 
     /**
      * 初始化画笔
@@ -59,7 +77,7 @@ public class CircleView extends View {
 
         paintText=new Paint();
         paintText.setColor(Color.RED);
-        paintText.setTextSize(20F);
+        paintText.setTextSize(defaultTextSize);
         paintText.setTextAlign(Paint.Align.CENTER);
     }
 
@@ -91,24 +109,75 @@ public class CircleView extends View {
         super.onLayout(changed, left, top, right, bottom);
     }
 
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+        }
+    };
+
+    long start,end;
+    int temp_num=0;
     @SuppressLint("WrongConstant")
     public void startAnimal(){
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (temp_num>=duration){
+                    if (listener!=null){
+                        listener.completed();
+                    }
+                    return;
+                }
+                handler.postDelayed(this,1000);
+                text=String.valueOf(duration-(++temp_num));
+                invalidate();
+
+            }
+        },1000);
         ValueAnimator valueAnimator=ValueAnimator.ofFloat(0,1);
-        valueAnimator.setDuration(5000);
-        valueAnimator.setRepeatMode(ValueAnimator.INFINITE);
+        valueAnimator.setDuration(duration*2*1000);
+
+
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 Float animatedValue = (Float) animation.getAnimatedValue();
-                Log.d("123","avalue=>"+animatedValue);
+//                Log.d("123","avalue=>"+animatedValue);
                 angle=animatedValue*360;
-                Log.d("123","angle=>"+angle);
+
+//                int temp = 360 / duration;
+//                int round = Math.round(angle % temp);
+//                Log.d("123","round -> "+round);
+//                if (round==0){
+//                    text=String.valueOf(duration-(++temp_num)+1);
+//                    Log.d("123","text -> "+text);
+//
+//                }
+//
+//                Log.d("123","angle=>"+angle);
                 if (Looper.getMainLooper().getThread()==Thread.currentThread()){
                     invalidate();
                 }
                 else{
                     postInvalidate();
                 }
+            }
+
+        });
+        valueAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                end=System.currentTimeMillis()-start;
+
+                Log.d("123",""+end/1000.00);
+            }
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+                super.onAnimationStart(animation);
+                start=System.currentTimeMillis();
             }
         });
         valueAnimator.start();
@@ -118,17 +187,29 @@ public class CircleView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        canvas.drawCircle(getMeasuredWidth()/2,getMeasuredHeight()/2,100,paintBackground);
+        int r=defaultWidth/2-10;
+        canvas.drawCircle(getMeasuredWidth()/2,getMeasuredHeight()/2,r,paintBackground);
         RectF rectF=new RectF();
-        rectF.left=getMeasuredWidth()/2-100;
-        rectF.top=getMeasuredHeight()/2-100;
-        rectF.right=getMeasuredWidth()/2+100;
-        rectF.bottom=getMeasuredHeight()/2+100;
+        rectF.left=getMeasuredWidth()/2-r;
+        rectF.top=getMeasuredHeight()/2-r;
+        rectF.right=getMeasuredWidth()/2+r;
+        rectF.bottom=getMeasuredHeight()/2+r;
         canvas.drawArc(rectF,0,angle,false,paintFoceground);
         Rect bounds=new Rect();
-        String text="20%";
+
         paintText.getTextBounds(text,0,text.length(),bounds);
         float offSet=(bounds.top+bounds.bottom)/2;
         canvas.drawText(text,getMeasuredWidth()/2,getMeasuredHeight()/2-offSet,paintText);
+    }
+
+
+    public void destoryView(){
+        if (handler!=null){
+            handler.removeCallbacksAndMessages(null);
+        }
+    }
+
+    public interface CircleViewCompletedListener{
+        void completed();
     }
 }

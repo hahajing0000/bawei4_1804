@@ -29,6 +29,8 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation libs.appcompat
     implementation libs.constraintlayout
+    implementation project(path: ':widget')
+    implementation project(path: ':storage')
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
