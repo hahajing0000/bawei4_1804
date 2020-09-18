@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/bll_usercenter" />
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/im" />
             <option value="$PROJECT_DIR$/imageloader" />
             <option value="$PROJECT_DIR$/log" />
             <option value="$PROJECT_DIR$/net" />

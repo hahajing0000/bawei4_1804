@@ -1,3 +1,4 @@
+include ':im'
 include ':bll_usercenter'
 include ':bll_settings'
 include ':usercenter'

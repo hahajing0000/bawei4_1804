@@ -36,7 +36,7 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
     }
-
+//1107190413084568#im
     private void initData() {
 
     }
