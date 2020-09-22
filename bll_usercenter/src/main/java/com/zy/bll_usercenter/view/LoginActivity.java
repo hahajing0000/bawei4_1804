@@ -18,6 +18,7 @@ import com.zy.core.mvp.ui.BaseActivity;
 import com.zy.imageloader.ImageLoaderManager;
 import com.zy.storage.callback.ResultCallback;
 import com.zy.storage.chain.StorageChainManager;
+import com.zy.widget.BesselView;
 
 import androidx.lifecycle.LifecycleOwner;
 
@@ -27,8 +28,8 @@ public class LoginActivity extends BaseActivity<UCPresenter> implements UserCent
     private Button btnLogin;
     private Button btnTestGreendao;
 
-
-
+    private BesselView bvTest;
+    private Button btnStartTest;
 
     @Override
     protected void initEvent() {
@@ -63,6 +64,13 @@ public class LoginActivity extends BaseActivity<UCPresenter> implements UserCent
 
             }
         });
+
+        btnStartTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bvTest.startAnimator();
+            }
+        });
     }
 
     UserEntityDao userDao;
@@ -70,6 +78,9 @@ public class LoginActivity extends BaseActivity<UCPresenter> implements UserCent
     protected void initData() {
         DaoSession daoSession = ((MyApplication) getApplication()).getDaoSession();
         userDao = daoSession.getUserEntityDao();
+
+        int[] imgs={R.drawable.img1,R.drawable.img2,R.drawable.img3,R.drawable.img4};
+        bvTest.setImgs(imgs);
 
 
     }
@@ -85,6 +96,9 @@ public class LoginActivity extends BaseActivity<UCPresenter> implements UserCent
 
 
         ImageLoaderManager.getInstance().load(this,"",null);
+
+        bvTest = (BesselView) findViewById(R.id.bv_test);
+        btnStartTest=findViewById(R.id.btn_start_Test);
     }
 
     @Override

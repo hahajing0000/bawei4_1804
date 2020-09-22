@@ -25,9 +25,6 @@ public class IMTestActivity extends AppCompatActivity {
     private Button btnJoinChatroom;
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
