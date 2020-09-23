@@ -4,7 +4,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.zy.core.mvp.InjectP;
 import com.zy.core.mvp.Presenter;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.List;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
@@ -15,15 +24,16 @@ import androidx.appcompat.app.AppCompatActivity;
  * @date:2020/9/9
  */
 public abstract class BaseActivity<P extends Presenter> extends AppCompatActivity {
-    protected P mPresenter;
+
+    protected List<Presenter> mPresenters;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        createPresenter();
-
         setContentView(getLayoutId());
+
+        initPresenters();
 
         initView(savedInstanceState);
         initData();
@@ -52,10 +62,7 @@ public abstract class BaseActivity<P extends Presenter> extends AppCompatActivit
      */
     protected abstract int getLayoutId();
 
-    /**
-     * 创建P层实例
-     */
-    protected abstract void createPresenter();
+
 
     /**
      * 查找资源
@@ -73,6 +80,38 @@ public abstract class BaseActivity<P extends Presenter> extends AppCompatActivit
      */
     protected void showMsg(String msg){
         Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 创建P层实例
+     */
+    private void initPresenters(){
+        mPresenters=new ArrayList<>();
+        Field[] fields = this.getClass().getDeclaredFields();
+        for (Field field:fields){
+            InjectP annotation = field.getAnnotation(InjectP.class);
+            if (annotation!=null){
+
+                try {
+                    Class<? extends Presenter> type= (Class<? extends Presenter>) field.getType();
+                    Constructor<?>[] constructors = type.getConstructors();
+                    Presenter presenter =null;
+                    for (Constructor constructor:constructors){
+                        presenter= (Presenter) constructor.newInstance(this);
+                        break;
+                    }
+                    field.setAccessible(true);
+                    field.set(this,presenter);
+                    mPresenters.add(presenter);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 }

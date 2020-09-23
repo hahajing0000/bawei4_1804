@@ -1,5 +1,6 @@
 package com.zy.bll_usercenter.view;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import com.zy.bll_usercenter.greendao.UserEntityDao;
 import com.zy.bll_usercenter.model.protocol.request.UserReq;
 import com.zy.bll_usercenter.presenter.UCPresenter;
 import com.zy.common.log.LogUtils;
+import com.zy.core.mvp.InjectP;
 import com.zy.core.mvp.ui.BaseActivity;
 import com.zy.imageloader.ImageLoaderManager;
 import com.zy.storage.callback.ResultCallback;
@@ -31,6 +33,13 @@ public class LoginActivity extends BaseActivity<UCPresenter> implements UserCent
     private BesselView bvTest;
     private Button btnStartTest;
 
+    @InjectP
+    UCPresenter mPresenter;
+
+    @InjectP
+    UCPresenter presenter2;
+
+
     @Override
     protected void initEvent() {
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -39,6 +48,10 @@ public class LoginActivity extends BaseActivity<UCPresenter> implements UserCent
                 String username=etUsername.getText().toString();
                 String pwd=etPwd.getText().toString();
                 mPresenter.login(new UserReq(username,pwd));
+
+                if (presenter2!=null){
+                    LogUtils.getInstance().i("presenter2 is not null");
+                }
             }
         });
 
@@ -106,10 +119,6 @@ public class LoginActivity extends BaseActivity<UCPresenter> implements UserCent
         return R.layout.activity_login;
     }
 
-    @Override
-    protected void createPresenter() {
-        mPresenter=new UCPresenter(this);
-    }
 
     @Override
     public void loginSuccess() {
