@@ -110,6 +110,8 @@ public class MediaRecoderDemoActivity extends AppCompatActivity  implements Surf
 //                            //设置记录会话的最大持续时间（毫秒）
 //                            mRecorder.setMaxDuration(30 * 1000);
 
+
+
                             mRecorder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_1080P));
 
                             //设置预览图像显示到SurfaceView

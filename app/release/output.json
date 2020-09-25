@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.zy.bawei4_1804",
+  "applicationId": "com.zy.bll_usercenter",
   "variantName": "release",
   "elements": [
     {
@@ -14,7 +14,7 @@
       "versionCode": 1,
       "versionName": "1",
       "enabled": true,
-      "outputFile": "app-release.apk"
+      "outputFile": "bll_usercenter-release.apk"
     }
   ]
 }

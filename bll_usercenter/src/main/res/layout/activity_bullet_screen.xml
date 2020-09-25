@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BulletScreenActivity">
+
+    <VideoView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></VideoView>
+    <com.zy.widget.BulletScreenView
+        android:id="@+id/bsv_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.zy.widget.BulletScreenView>
+</RelativeLayout>
